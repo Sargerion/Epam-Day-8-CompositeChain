@@ -11,6 +11,11 @@ public class TextLeafLetter implements TextComponent{
     }
 
     @Override
+    public List<TextComponent> getComponents() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean add(TextComponent component) {
         throw new UnsupportedOperationException();
     }
@@ -33,5 +38,20 @@ public class TextLeafLetter implements TextComponent{
     @Override
     public String toString() {
         return String.valueOf(letter);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TextLeafLetter that = (TextLeafLetter) o;
+        return letter.equals(that.letter);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = letter.hashCode();
+        result *= 31;
+        return result;
     }
 }

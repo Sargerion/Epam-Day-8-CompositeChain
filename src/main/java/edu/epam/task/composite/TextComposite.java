@@ -7,6 +7,15 @@ public class TextComposite implements TextComponent{
 
     private List<TextComponent> components = new ArrayList<>();
 
+    public TextComposite() {
+
+    }
+
+    public TextComposite(List<TextComponent> components) {
+        this.components = components;
+    }
+
+    @Override
     public List<TextComponent> getComponents() {
         return new ArrayList<>(components);
     }
@@ -14,6 +23,11 @@ public class TextComposite implements TextComponent{
     @Override
     public boolean add(TextComponent component) {
         components.add(component);
+        return true;
+    }
+
+    public boolean addAll(List<TextComponent> textComponents) {
+        components.addAll(textComponents);
         return true;
     }
 
@@ -36,7 +50,10 @@ public class TextComposite implements TextComponent{
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         for (TextComponent textComponent : components) {
-            sb.append(textComponent);
+            sb.append(textComponent.toString());
+            if(textComponent.getClass() != TextLeafLetter.class) {
+                sb.append(" ");
+            }
         }
         return sb.toString();
     }

@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface TextComponent {
 
+    List<TextComponent> getComponents();
+
     boolean add(TextComponent component);
 
     TextComponent getComponent(int index);
@@ -11,4 +13,6 @@ public interface TextComponent {
     boolean remove(TextComponent component);
 
     int getSize();
+
+    String toString();
 }

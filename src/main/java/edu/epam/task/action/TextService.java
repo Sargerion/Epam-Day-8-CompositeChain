@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface TextService {
 
-    List<TextComponent> sortParagraphsByWordsCount(List<TextComponent> paragraphs);
+    TextComponent sortParagraphsBySentenceCount(TextComponent textComponent);
 
-    String findSentenceWithLongestWord();
+    TextComponent findSentenceWithLongestWord(TextComponent textComponent);
 
-    void deleteAllSentencesWhereWordCountLessThanKey(int key);
+    TextComponent deleteAllSentencesWhereWordCountLessThanKey(TextComponent component, int key);
 
-    List<String> findSameWords();
+    int findSameWordsCount(TextComponent textComponent, String queryWord);
 }

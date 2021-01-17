@@ -2,6 +2,7 @@ package edu.epam.task.parser.impl;
 
 import edu.epam.task.composite.TextComponent;
 import edu.epam.task.composite.TextComposite;
+import edu.epam.task.composite.TextLeafLetter;
 import edu.epam.task.composite.TextLeafPunctuation;
 import edu.epam.task.parser.Handler;
 
@@ -16,27 +17,19 @@ public class ParagraphParser implements Handler {
 
     private static final Logger logger = LogManager.getLogger();
     private static final String REGEXP_PARAGRAPH_DELIMITER = "\\s{4}";
-    private SentenceParser sentenceParser;
-
-    public ParagraphParser(SentenceParser sentenceParser) {
-        this.sentenceParser = sentenceParser;
-    }
+    private Handler sentenceParser = new SentenceParser();
 
     @Override
     public TextComponent handleRequest(String text) {
         List<String> paragraphs = Stream.of(text.split(REGEXP_PARAGRAPH_DELIMITER)).collect(Collectors.toList());
         logger.info("Paragraphs parsed correctly ->\n{}", paragraphs);
-        TextComponent textComponent = new TextComposite();
-        if (sentenceParser == null) {
-            return textComponent;
-        } else {
-            for (String paragraph : paragraphs) {
-                if (paragraph.length() > 0) {
-                    TextComponent componentParagraph = sentenceParser.handleRequest(paragraph);
-                    textComponent.add(componentParagraph);
-                }
+        TextComponent textComposite = new TextComposite();
+        for (String paragraph : paragraphs) {
+            if (paragraph.length() > 0) {
+                TextComponent componentParagraph = sentenceParser.handleRequest(paragraph);
+                textComposite.add(componentParagraph);
             }
         }
-        return textComponent;
+        return textComposite;
     }
 }
